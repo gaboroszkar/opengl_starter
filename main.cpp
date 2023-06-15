@@ -14,7 +14,8 @@ int main()
     // That means we only have the modern functions.
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow *window = glfwCreateWindow(1280, 720, "Application", NULL, NULL);
+    GLFWwindow *window =
+        glfwCreateWindow(1280, 720, "Application", nullptr, nullptr);
     // Introduce the window into the current context.
     glfwMakeContextCurrent(window);
 
@@ -24,7 +25,7 @@ int main()
     glViewport(0, 0, 1280, 720);
 
     // Create vertex shader.
-    GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+    GLuint vertex_shader_index = glCreateShader(GL_VERTEX_SHADER);
     const char *vertex_shader_source =
         "#version 460 core\n"
         "layout (location = 0) in vec3 position;\n"
@@ -33,12 +34,12 @@ int main()
         "    gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
         "}\0";
     // Attach vertex shader source to the vertex shader object.
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
+    glShaderSource(vertex_shader_index, 1, &vertex_shader_source, nullptr);
     // Compile the vertex shader.
-    glCompileShader(vertex_shader);
+    glCompileShader(vertex_shader_index);
 
     // Create fragment shader.
-    GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
+    GLuint fragment_shader_index = glCreateShader(GL_FRAGMENT_SHADER);
     const char *fragment_shader_source =
         "#version 460 core\n"
         "out vec4 color;\n"
@@ -47,31 +48,31 @@ int main()
         "    color = vec4(0.0f, 0.0f, 0.0f, 1.0f);\n"
         "}\n\0";
     // Attach fragment shader source to the fragment shader object.
-    glShaderSource(fragment_shader, 1, &fragment_shader_source, NULL);
+    glShaderSource(fragment_shader_index, 1, &fragment_shader_source, nullptr);
     // Compile the fragment shader.
-    glCompileShader(fragment_shader);
+    glCompileShader(fragment_shader_index);
 
     // Create shader program.
-    GLuint shader_program = glCreateProgram();
+    GLuint shader_program_index = glCreateProgram();
     // Attach the vertex shader and fragment shader to the shader program.
-    glAttachShader(shader_program, vertex_shader);
-    glAttachShader(shader_program, fragment_shader);
+    glAttachShader(shader_program_index, vertex_shader_index);
+    glAttachShader(shader_program_index, fragment_shader_index);
     // Link all the shaders together into the shader program.
-    glLinkProgram(shader_program);
+    glLinkProgram(shader_program_index);
 
     // Delete the now useless vertex shader and fragment shader objects.
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
+    glDeleteShader(vertex_shader_index);
+    glDeleteShader(fragment_shader_index);
 
     // Create vertex array.
-    GLuint vertex_array;
-    glGenVertexArrays(1, &vertex_array);
-    glBindVertexArray(vertex_array);
+    GLuint vertex_array_index;
+    glGenVertexArrays(1, &vertex_array_index);
+    glBindVertexArray(vertex_array_index);
 
     // Create vertex buffer.
-    GLuint vertex_buffer;
-    glGenBuffers(1, &vertex_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+    GLuint vertex_buffer_index;
+    glGenBuffers(1, &vertex_buffer_index);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_index);
 
     // Introduce the vertices into the vertex buffer.
     GLfloat vertices[] =
@@ -87,8 +88,7 @@ int main()
 
     // Configure the vertex attribute so that OpenGL knows how to read the
     // vertex buffer.
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                          (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     // Enable the vertex attribute.
     glEnableVertexAttribArray(0);
 
@@ -105,9 +105,9 @@ int main()
         // Clean the back buffer and assign the new color to it.
         glClear(GL_COLOR_BUFFER_BIT);
         // Tell OpenGL which shader program we want to use.
-        glUseProgram(shader_program);
+        glUseProgram(shader_program_index);
         // Bind the vertex array so OpenGL knows to use it.
-        glBindVertexArray(vertex_array);
+        glBindVertexArray(vertex_array_index);
         // Draw the triangle using the GL_TRIANGLES primitive.
         glDrawArrays(GL_TRIANGLES, 0, 3);
         // Swap the back buffer with the front buffer.
@@ -117,9 +117,9 @@ int main()
     }
 
     // Delete all the objects we've created.
-    glDeleteVertexArrays(1, &vertex_array);
-    glDeleteBuffers(1, &vertex_buffer);
-    glDeleteProgram(shader_program);
+    glDeleteVertexArrays(1, &vertex_array_index);
+    glDeleteBuffers(1, &vertex_buffer_index);
+    glDeleteProgram(shader_program_index);
     // Delete window before ending the program.
     glfwDestroyWindow(window);
     // Terminate GLFW before ending the program.
