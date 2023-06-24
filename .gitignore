@@ -1,17 +1,5 @@
 # Generated build configurations.
-CMakeCache.txt
-CMakeFiles/
-Makefile
-cmake_install.cmake
-compile_commands.json
+build/
 
 # Cache for clangd.
 .cache/
-
-# glad generated files.
-gladsources/
-libglad_gl_core_*.a
-
-# Built binary.
-opengl_starter
-

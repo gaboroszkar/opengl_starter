@@ -9,13 +9,13 @@ As of right now, glad requires Jinja2 python package, and GLFW requires multiple
 
 After the requirements are installed, run the following commands in this repository.
 ```
-cmake .
-cmake --build .
+cmake -S . -B build
+cmake --build build
 ```
 
 Then, you can run the application.
 ```
-./opengl_starter
+./build/opengl_starter
 ```
 
 ## References
