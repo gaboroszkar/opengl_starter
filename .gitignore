@@ -1,5 +1,2 @@
 # Generated build configurations.
 build/
-
-# Cache for clangd.
-.cache/
